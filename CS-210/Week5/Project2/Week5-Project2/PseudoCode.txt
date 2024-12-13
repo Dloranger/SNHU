@@ -1,0 +1,60 @@
+Arigead class
+  public
+    RequestUserInputs
+      display banner content
+      request user to input OpeningAmount
+      validate input
+      set value to OpeningAmount
+      ...
+      repeat for all inputs
+      ...
+      hold the screen waiting for user to continue
+      (clear the screen?)
+      display all entered data in formatted output
+      //example is 34 char wide, but this is only capable to support $99.99 max wihtout overflowing.  
+      //   Banner may want to adjust to accomodate clean printing (not a requirement)
+      
+    
+   // SetInitialAmount()
+   // GetInitialAmount()
+   // ... functions for set/get each value holder
+
+    DisplayReports()
+      double vector NoDeposit,YesDeposit
+      string vector SummaryReport
+      CalcNoDeposits()
+      Display Summary report
+      --- replace regions of the text based on vector contents size
+      CalcYesDeposits()
+      Display Summary report
+      --- replace regions of the text based on vector contents size
+  private
+    double OpeningAmount,DepositedAmount,AnnualInterest,NumOfYears
+    //Interest rate is provided as a percentage
+    
+    void CalcGrowth(pointer to Vector,bool monthlyDeposit)
+      //calculate based on monthly compounding
+      //only store the end of year and final month if applicable in the output vector for display
+
+    
+bool UserMenu()
+   while (true) {
+   1: try another scenerio
+   2: quit
+   switch:
+   1: return False; break;
+   2: return True; break;
+   default:
+   }
+
+int main()
+Airgead BankAppUser
+bool stop = False;
+while (!stop) {
+    BankAppUser.RequestInputs()
+    DisplayReports()
+    }
+return 0
+
+
+//double check all items against coding standards once functionality is confirmed
