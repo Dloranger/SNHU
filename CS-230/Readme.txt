@@ -4,7 +4,7 @@ The software to be developed is intended to take an existing JAVA application an
 
 The code utilized in the course is exclusively JAVA, with guidance for using the Eclipse IDE toolset for development.
 
-In the initial phases, an understanging of the possible design architectures are explored (mostly in readings), with a final selection of a singleton pattern being selected and then implemented thru mostly completed code that needed to have some tweaks made to ensure the architecture is implemented accordingly.
+In the initial phases, an understanding of the possible design architectures are explored (mostly in readings), with a final selection of a singleton pattern being selected and then implemented thru mostly completed code that needed to have some tweaks made to ensure the architecture is implemented accordingly.
 
 Once the singleton pattern is implemented, further exploration is continued with the introduction of the REST api and security including using DropWizard methods are then layered on, again thru lead exercises that are extrapolated from the literature guidance.
 
@@ -17,3 +17,5 @@ Within the context of the example project, many areas were readily completed wit
 When summarizing the customers requirements, all unnecessary extra wording and formatting should be removed, and keep only the key actionable details in the form of a well formatted list.  This will then translate into a checklist for the developers and quality checking activities to ensure all requirements are easily understood and properly executed without the need for detailed interpretations.
 
 As demonstrated in the early portion of the course, utilizing a software diagram showing how data flows thru the project is a crucial element to ensure data only ends up where it is needed, as well as following a predictable workflow allows for more efficient code, as well as giving a high level view for analysis without the need to read thru potentially massive amounts of code to understand the overall architecture.
+
+For this particular application, the use of the software diagram was particularly useful and is a great method to communicate succinctly the data flow which often can be very confusing when inheriting code that someone else has written and you are expected to maintain.  This also helps to ensure the user's needs are met thru high level reviews of the overall architecture, data collected and transacted, and can lead to faster modifications before the code is ever written.
