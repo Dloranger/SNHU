@@ -43,8 +43,8 @@ struct Bid {
 /**
  * Define a class containing data members and methods to
  * implement a hash table with chaining.
- */
-class HashTable {
+ */class HashTable {
+
 
 private:
 	// Define structures to hold bids

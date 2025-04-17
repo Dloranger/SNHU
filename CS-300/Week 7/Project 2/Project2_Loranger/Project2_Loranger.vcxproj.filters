@@ -19,4 +19,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CS 300 ABCU_Advising_Program_Input.csv" />
+  </ItemGroup>
 </Project>

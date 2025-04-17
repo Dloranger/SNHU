@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Project2_Loranger.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CS 300 ABCU_Advising_Program_Input.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
