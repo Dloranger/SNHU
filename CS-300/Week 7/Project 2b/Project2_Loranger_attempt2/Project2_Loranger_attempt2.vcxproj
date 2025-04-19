@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Project2_Loranger_attempt2.cpp" />
+    <ClCompile Include="ProjectTwo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CS 300 ABCU_Advising_Program_Input.csv" />
