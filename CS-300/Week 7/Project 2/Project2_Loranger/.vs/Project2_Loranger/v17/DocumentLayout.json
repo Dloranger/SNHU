@@ -1,53 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 7\\Project 2\\Project2_Loranger\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{47786170-38FC-481D-AB6B-1751CA3D3FEA}|Project2_Loranger.vcxproj|C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 7\\Project 2\\Project2_Loranger\\Project2_Loranger.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47786170-38FC-481D-AB6B-1751CA3D3FEA}|Project2_Loranger.vcxproj|solutionrelative:Project2_Loranger.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 4\\Assignment 3\\CS 300 Hash Table Assignment Student Files\\HashTable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HashTable.cpp",
-              "DocumentMoniker": "C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 4\\Assignment 3\\CS 300 Hash Table Assignment Student Files\\HashTable.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\Week 4\\Assignment 3\\CS 300 Hash Table Assignment Student Files\\HashTable.cpp",
-              "ToolTip": "C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 4\\Assignment 3\\CS 300 Hash Table Assignment Student Files\\HashTable.cpp",
-              "RelativeToolTip": "..\\..\\..\\Week 4\\Assignment 3\\CS 300 Hash Table Assignment Student Files\\HashTable.cpp",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAJIBAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-16T23:12:08.278Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Project2_Loranger.cpp",
-              "DocumentMoniker": "C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 7\\Project 2\\Project2_Loranger\\Project2_Loranger.cpp",
-              "RelativeDocumentMoniker": "Project2_Loranger.cpp",
-              "ToolTip": "C:\\Users\\dlora\\Documents\\GitHub\\SNHU\\CS-300\\Week 7\\Project 2\\Project2_Loranger\\Project2_Loranger.cpp",
-              "RelativeToolTip": "Project2_Loranger.cpp",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAgwMAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-14T22:06:01Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

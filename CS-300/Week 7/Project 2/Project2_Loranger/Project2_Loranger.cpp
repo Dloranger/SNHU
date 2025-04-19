@@ -76,11 +76,12 @@ using namespace std;
 
 string csvPath;
 
-//HashTable courseTable;
+
+
 
 //define the hash table for importing the courses
 //Courses are a maximum of 7 characters long 
-const unsigned int DEFAULT_SIZE = 7 * 36; // default size of the hash table
+const unsigned int DEFAULT_SIZE = INT32_MAX; // default size of the hash table
 
 
 // define a structure to hold course information
@@ -90,10 +91,242 @@ struct Course {
 	string preReqList;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//============================================================================
+// Hash Table class definition
+//============================================================================
+
+class HashTable {
+private:
+
+	Course course;
+
+
+	struct Node {
+		Course course;
+		unsigned int key;
+		Node* next;
+
+		// default constructor
+		Node() {
+			key = UINT_MAX;
+			next = nullptr;
+		}
+		// initialize with a Course
+		Node(Course aCourse) : Node() {
+			course = aCourse;
+		}
+
+		// initialize with a course and a key
+		Node(Course aCourse, unsigned int aKey) : Node(aCourse) {
+			key = aKey;
+		}
+	};
+
+	vector<Node> nodes;
+	unsigned int tableSize = DEFAULT_SIZE;
+
+	unsigned int hash(Course course);
+
+public:
+	HashTable();
+	HashTable( int size);
+	virtual ~HashTable();
+	void Insert(Course course);
+	void showCourse(string courseId);
+	void PrintAll();
+};
+
+/**
+ * Destructor
+ */
+HashTable::~HashTable() {
+	// FIXME (2): Implement logic to free storage when class is destroyed
+
+	// erase nodes beginning
+	//DL - erase the nodes vector beginning to unload the memory
+	nodes.erase(nodes.begin());
+}
+
+/**
+ * Print all Courses
+ */
+void HashTable::PrintAll() {
+	for (int i = 0; i < tableSize; i++) {
+		//   if key not equal to UINT_MAX
+		Node cursor = nodes.at(i);
+		if (cursor.key != UINT_MAX) {
+
+			// What course do you want to know about ? csci400
+			// CSCI400, Large Software Development
+			// Prerequisites : CSCI301, CSCI350
+			cout << cursor.course.courseID << ", "
+				<< cursor.course.title << endl;
+			cout << "Prerequisites : " << cursor.course.preReqList << endl;
+		}
+	}
+}
+
+/**
+ * Search for the specified courseId
+ *
+ * @param courseId The course id to search for
+ */
+void HashTable::showCourse(string courseId) {
+
+}
+
+unsigned int HashTable::hash(Course course) {
+	//DL - Use the key and modulo table size to calculate the hash value
+	// return key tableSize
+	int hash = (std::hash<std::string>{}(course.courseID)) % 100;
+	return hash;
+}
+
+/**
+ * Constructor for specifying size of the table
+ * Use to improve efficiency of hashing algorithm
+ * by reducing collisions without wasting memory.
+ */
+HashTable::HashTable(int size) {
+	// invoke local tableSize to size with this->
+	//DL - update the table size variable to the size passed in
+	this->tableSize = size;
+	// resize nodes size
+	//DL - resize the nodes vector to the size passed in
+	nodes.resize(size);
+}
+
+/**
+ * Insert a course
+ *
+ * @param course The course to insert
+ */
+void HashTable::Insert(Course course) {
+
+	string keyStr = course.courseID;
+	int key[] = { keyStr[0], keyStr[1], keyStr[2], keyStr[3], keyStr[4], keyStr[5], keyStr[6]};
+
+	int key2 = 0;
+	for (int i = 0; i < keyStr.length(); i++) {
+		key2 = (key2 <<8) + (key[i]);
+
+		cout << "key2: " << to_string(key2) << endl;
+	} 
+
+	int target = key2;
+	
+//unsigned int key = std::hash(course.courseID.c_str,10);
+
+	// retrieve node using key
+	//DL - Search for the node using the key, using UINT_MAX to indicate no entry found
+	//DL if there is a match to UINT_MAX, the node is empty, so we can reassign the node
+	if (nodes.at(target).key == INT_MAX) {
+		// if no entry found for the key
+		// assign this node to the key position
+		//DL - create a new node based on the course input and the key we just created
+		nodes.at(target) = Node(course, target);
+
+	}
+	else {
+		//DL - this is a collision, so we need to find the next open node in the list
+		//DL - start at the default key position
+		Node* cursor = &nodes.at(target);
+
+		//DL - loop through the list until we find the end
+		//DL - scan the list to find the last position
+		while (cursor->next != NULL) {
+			cursor = cursor->next;
+		}
+		//DL - We found the end of the list, so add the new node to the end
+		//DL - the new node automatically sets the next pointer to null
+		cursor->next = new Node(course, target);
+	}
+}
+
+
+//forward declare the function to load the course data
+void loadFromFile(string loadFile, HashTable* courseTable);
+
+
+/*
+* Show the user menu and validate the entry against the available options
+*/
+int showMenu(HashTable* courseTable) {
+	//keep the context local for std
+
+
+	while (1) { // stay here until a valid option is chosen
+
+		// display the supported list of available options
+		cout << "1. Load Data Structure." << endl;
+		cout << "2. Print Course List." << endl;
+		cout << "3. Print Course." << endl;
+		cout << "9. Exit" << endl;
+		cout << "What would you like to do ? ";
+
+		// using a simple switch structure to only accept the allowed options
+		string userInput;
+		cin >> userInput;
+		if (userInput.empty()) { cout << "entry was empty" << endl; }
+		else {
+			switch (char(userInput[0])) { // only use the first char entered
+
+			case 0x31: //"1. Load Data Structure."
+			{
+				loadFromFile(csvPath, courseTable);
+				break;
+			}
+			case 0x32: //"2. Print Course List."
+			{
+				courseTable->PrintAll();
+				break;
+			}
+			case 0x33: //"3. Print Course."
+			{
+				cout << "What course do you want to know about ? ";
+				cin >> userInput;
+
+				break;
+			}
+			case 0x39: //"9. Exit" 
+			{
+				// behavior: Close the program with a courteous message
+				// Checking: expected output has been checked against the requirements
+
+				cout << "Thank you for using the course planner!" << endl;
+				exit(0);
+				break;
+			}
+			default:
+			{
+				// user entered something invalid
+				// behavior: display an error and show the menu again
+				cout << userInput << " is not a valid option." << endl << endl;
+			}
+
+			}//switch close
+		} // not an empty getline()
+	} //while loop
+}
+
+
 /*
 *  Read in the csv data from file
 */
-void loadFromFile(string loadFile) {
+void loadFromFile(string loadFile, HashTable* courseTable) {
 	// to fullfill the requirement of reading in the course list from a file
 	// a pre-req must always be found in the file, 
 	// so first must generate a list of the courses contained in the list to check against
@@ -125,6 +358,7 @@ void loadFromFile(string loadFile) {
 		}
 
 	}
+	MyReadFile.close();
 
 	//debugging output to show the list of found course IDs
 
@@ -138,14 +372,14 @@ void loadFromFile(string loadFile) {
 
 	// now we know the total list of included courses so we can start importing
 	// the data into the program for use
-
-	while (getline(MyReadFile, fileText)) {
+	ifstream MyReadFile2(loadFile);
+	while (getline(MyReadFile2, fileText)) {
 		Course newCourse;
 		//extract the course ID from the file
-		string courseID = fileText.substr(0, fileText.find(','));
+		newCourse.courseID = fileText.substr(0, fileText.find(','));
 		fileText.erase(0, fileText.find(',') + 1); // remove the course ID from the string
 		//extract the title from the file 
-		string courseName = fileText.substr(0, fileText.find(','));
+		newCourse.title = fileText.substr(0, fileText.find(','));
 		fileText.erase(0, fileText.find(',') + 1); // remove the course name from the string
 
 
@@ -163,224 +397,39 @@ void loadFromFile(string loadFile) {
 				}
 				//increment the iterator, at the end of the loop, i will be equal to the size of the courseIds vector
 				++i;
+				// if i is equal to the size of the courseIds vector, it means that the pre-requisite is not in the list
+				if ((i == courseIds.size()) && (preReq != "")) {
+					cout << "The following course was not found in the list: " << preReq << endl;
+					cout << "aborting import of courses " << endl;
+					exit(1);
+				}
 			}
 
 
-			// if i is equal to the size of the courseIds vector, it means that the pre-requisite is not in the list
-			if (i == courseIds.size()) {
-				cout << "The following course was not found in the list: " << preReq << endl;
-				cout << "aborting import of courses " << endl;
-				exit(1);
-			}
+
+			
 
 
 			// all course prerequisite items have been checked, if we made it this far they must have all been found.
 			// now we can add the course to the hash table
 
-			courseTable.Insert(newCourse);
+
+			courseTable->Insert(newCourse); //DL - add the course to the hash table
 
 		}
 
 
 
 	}
-	MyReadFile.close();
+	MyReadFile2.close();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//============================================================================
-// Hash Table class definition
-//============================================================================
-
-class HashTable {
-private:
-	
-	Course course;
-
-
-	struct Node {
-		Course course;
-		unsigned int key;
-		Node* next;
-
-		// default constructor
-		Node() {
-			key = UINT_MAX;
-			next = nullptr;
-		}
-		// initialize with a Course
-		Node(Course aCourse) : Node() {
-			course = aCourse;
-		}
-
-		// initialize with a course and a key
-		Node(Course aCourse, unsigned int aKey) : Node(aCourse) {
-			key = aKey;
-		}
-	};
-
-	vector<Node> nodes;
-	unsigned int tableSize = DEFAULT_SIZE;
-
-	unsigned int hash(int key);
-
-public:
-	HashTable();
-	HashTable(unsigned int size);
-	virtual ~HashTable();
-	void Insert(Course course);
-	void PrintAll();
-};
-
-/**
- * Destructor
- */
-HashTable::~HashTable() {
-	// FIXME (2): Implement logic to free storage when class is destroyed
-
-	// erase nodes beginning
-	//DL - erase the nodes vector beginning to unload the memory
-	nodes.erase(nodes.begin());
-}
-
-
-unsigned int HashTable::hash(int key) {
-	//DL - Use the key and modulo table size to calculate the hash value
-	// return key tableSize
-	return key % tableSize;
-}
-
-/**
- * Constructor for specifying size of the table
- * Use to improve efficiency of hashing algorithm
- * by reducing collisions without wasting memory.
- */
-HashTable::HashTable(unsigned int size) {
-	// invoke local tableSize to size with this->
-	//DL - update the table size variable to the size passed in
-	this->tableSize = size;
-	// resize nodes size
-	//DL - resize the nodes vector to the size passed in
-	nodes.resize(size);
-}
-
-/**
- * Insert a course
- *
- * @param course The course to insert
- */
-void HashTable::Insert(Course course) {
-
-	//DL - create a key for the course using the hash function
-	//DL - use the atoi function to convert the courseID string type to an integer
-	unsigned int key = hash(atoi(course.courseID.c_str()));
-
-	// retrieve node using key
-	//DL - Search for the node using the key, using UINT_MAX to indicate no entry found
-	//DL if there is a match to UINT_MAX, the node is empty, so we can reassign the node
-	if (nodes.at(key).key == UINT_MAX) {
-		// if no entry found for the key
-		// assign this node to the key position
-		//DL - create a new node based on the course input and the key we just created
-		nodes.at(key) = Node(course, key);
-
-	}
-	else {
-		//DL - this is a collision, so we need to find the next open node in the list
-		//DL - start at the default key position
-		Node* cursor = &nodes.at(key);
-
-		//DL - loop through the list until we find the end
-		//DL - scan the list to find the last position
-		while (cursor->next != NULL) {
-			cursor = cursor->next;
-		}
-		//DL - We found the end of the list, so add the new node to the end
-		//DL - the new node automatically sets the next pointer to null
-		cursor->next = new Node(course, key);
-	}
-}
-
-
-
-
-
-/*
-* Show the user menu and validate the entry against the available options
-*/
-int showMenu() {
-	//keep the context local for std
-
-
-	while (1) { // stay here until a valid option is chosen
-
-		// display the supported list of available options
-		cout << "1. Load Data Structure." << endl;
-		cout << "2. Print Course List." << endl;
-		cout << "3. Print Course." << endl;
-		cout << "9. Exit" << endl;
-		cout << "What would you like to do ? ";
-
-		// using a simple switch structure to only accept the allowed options
-		string userInput;
-		cin >> userInput;
-		if (userInput.empty()) { cout << "entry was empty" << endl; }
-		else {
-			switch (char(userInput[0])) { // only use the first char entered
-
-			case 0x31: //"1. Load Data Structure."
-			{
-				loadFromFile(csvPath);
-				break;
-			}
-			case 0x32: //"2. Print Course List."
-			{
-				break;
-			}
-			case 0x33: //"3. Print Course."
-			{
-				break;
-			}
-			case 0x39: //"9. Exit" 
-			{
-				// behavior: Close the program with a courteous message
-				// Checking: expected output has been checked against the requirements
-
-				cout << "Thank you for using the course planner!" << endl;
-				exit(0);
-				break;
-			}
-			default:
-			{
-				// user entered something invalid
-				// behavior: display an error and show the menu again
-				cout << userInput << " is not a valid option." << endl << endl;
-			}
-
-			}//switch close
-		} // not an empty getline()
-	} //while loop
-}
-
-
 
 
 int main(int argc, char* argv[])
 {
 
 	// process command line argument (filename)
-	
+
 	switch (argc) {
 	case 2:
 		csvPath = argv[1];
@@ -390,15 +439,13 @@ int main(int argc, char* argv[])
 		csvPath = "CS 300 ABCU_Advising_Program_Input.csv";
 	}
 
-	// Define a timer variable
-	clock_t ticks;
 
 	// Define a hash table to hold all the courses
 	HashTable* courseTable;
 
 	//Course course;
-	courseTable = new HashTable();
-	
-	showMenu();
+	courseTable = new HashTable(DEFAULT_SIZE);
+
+	showMenu(courseTable);
 }
 
