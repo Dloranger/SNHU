@@ -24,7 +24,7 @@ public class SlideShow extends JFrame {
 	private JLabel lblSlide;
 	private JLabel lblTextArea;
 	
-	//DL 2025-Sept-30 - Creating temperory hardcoded array that will be replaced by database later
+	//DL 2025-Sept-30 - Creating temporary hardcoded array that will be replaced by database later
 	//Small 2D array to keep details for items together based on index
 	//[0] - index [1] - picture [2] Short text [3] - image source
 	private String[][] Packages;
@@ -42,37 +42,39 @@ public class SlideShow extends JFrame {
 	 */
 	private void initComponent() {
 		
-		//DL 2025-Sept-30 - Creating temporary hardcoded array that will be replaced by database later
-		//Small 2D array to keep details for items together based on index
-		//[0] - index [1] - picture [2] Short text [3] - image source
+		/*DL 2025-Sept-30 - Creating temporary hard-coded array that will be replaced by database later
+		Small 2D array to keep details for items together based on index
+		[0] - index [1] - picture [2] Short text [3] - image source
+		
+		This change is made to optimize the functional code elements which ensures more reliable and testable code
+		*/
+		
 		Packages = new String [5][4];
 		Packages[0][0] = "1";
 		Packages[0][1] = "/resources/Spa1.jpg";
-		Packages[0][2] = "The Omni Grove Park Inn";
+		Packages[0][2] = "The Omni Grove Park Inn </font> <br> Relax at a stately and historic golf resort at The Omni Grove Park Inn & Spa, a beloved Southern retreat in Asheville, NC";
 		Packages[0][3] = "https://www.omnihotels.com/blog/wp-content/uploads/2017/04/1000x700_gpirst_spa_pool.jpg";
 		
 		Packages[1][0] = "2";
 		Packages[1][1] = "/resources/Spa2.jpg";
-		Packages[1][2] = "Omni Scottsdale Resort & Spa at Montelucia";
+		Packages[1][2] = "Omni Scottsdale Resort & Spa at Montelucia </font> <br> A Spanish-inspired upscale resort. The resort feels like a picturesque Andalusian village.";
 		Packages[1][3] = "https://www.omnihotels.com/blog/wp-content/uploads/2021/06/JoyofPurif_horizontal_large-blog.jpg";
 		
 		Packages[2][0] = "3";
 		Packages[2][1] = "/resources/Spa3.jpg";
-		Packages[2][2] = "Aura Spa at Le Blanc Spa Resort Los Cabos";
+		Packages[2][2] = "Aura Spa at Le Blanc Spa Resort Los Cabos </font> <br> Adults only oasis of luxury on the Baja Peninsula. Delight your senses with its unique views of the desert and the sea.";
 		Packages[2][3] = "https://secure.s.forbestravelguide.com/img/properties/blanc-spa-los-cabos/extra-large/le-blanc-spa-resort-los-cabos-hydrotherapy3.jpg";
 		
 		Packages[3][0] = "4";
 		Packages[3][1] = "/resources/Spa4.jpg";
-		Packages[3][2] = "Vista Encantada Spa Resort, Cabo San Lucas";
+		Packages[3][2] = "Vista Encantada Spa Resort, Cabo San Lucas </font> <br> Surrounded by the Pacific Ocean with unobstructed views of Land's End, Vista Encantada's luxurious suites provide a tranquil retreat";
 		Packages[3][3] = "https://vistaencantadaresort.com/images/home/amenities.jpg";
 		
 		Packages[4][0] = "5";
 		Packages[4][1] = "/resources/Spa5.jpg";
-		Packages[4][2] = "Mirror Lake Inn Resort & Spa, Lake Placid";
+		Packages[4][2] = "Mirror Lake Inn Resort & Spa, Lake Placid </font> <br> offering a luxurious lakeside experience with stunning mountain views, a renowned spa, excellent dining";
 		Packages[4][3] = "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_348,q_75,w_618/v1/clients/newyorkstate/mirrorlakeinnspa_Instagram_2829_ig_18294539065046082_a9a7d54d-f001-44a8-9418-9d6b833a3828.jpg";
-		//DL 2025-Sept-30 - Creating temporary hardcoded array that will be replaced by database later
-		//Small 2D array to keep details for items together based on index
-		//[0] - index [1] - picture [2] Short text [3] - image source
+		//DL 2025-Sept-30
 		
 		
 		
@@ -100,12 +102,6 @@ public class SlideShow extends JFrame {
 		//Setting the layouts for the panels
 		slidePane.setLayout(card);
 		textPane.setLayout(cardText);
-		
-		
-
-		
-		
-		
 		
 		
 		//logic to add each of the slides and text
@@ -165,17 +161,18 @@ public class SlideShow extends JFrame {
 	
 	/**
 	 * Method to get the images
+	 * index i is base 1 value not base 0 value  //DL 2025-Sept-30 Updated to clarify base used
 	 */
-	
-
-	
 	private String getResizeIcon(int i) {
 		String image = ""; 
 		
-
-		//DL 2025-Sept-30 - Disabled nested if-else in preference of an indexed call that is easily expanded to a different size and variable
-		//contents that could reside on an accessible database later.
-/*		if (i==1){
+		/*
+		 * DL 2025-Sept-30 - Updating the code from a difficult to manipulate nested if-else into a single array driven line of code to ensure
+		 * consistency and minimize maintenance should requirements change.
+		 * 
+		 * This change is made to optimize the functional code elements which ensures more reliable and testable code
+		
+		if (i==1){
 			image = "<html><body><img width= '800' height='500' src='" + getClass().getResource("/resources/TestImage1.jpg") + "'</body></html>";
 		} else if (i==2){
 			image = "<html><body><img width= '800' height='500' src='" + getClass().getResource("/resources/TestImage2.jpg") + "'</body></html>";
@@ -186,23 +183,35 @@ public class SlideShow extends JFrame {
 		} else if (i==5){
 			image = "<html><body><img width= '800' height='500' src='" + getClass().getResource("/resources/TestImage5.jpg") + "'</body></html>";
 		}
-*/
-		//retrieve the desired image from the packages array based on the index value.  Assumes i is presented as a base 1 value vs base 0
-		//based on the strawman provided code.
-		image = "<html><body><img width= '800' height='500' src='" + getClass().getResource(""+Packages[i-1][1]+"") + "'</body></html>";
-		
+		* 
+		* retrieve the desired image from the packages array based on the index value.  Assumes i is presented as a base 1 value vs base 0
+		* based on the straw-man provided code.
+		* DL 2025-Sept-30
+		*/
+		try {
+		image = "<html><body><img width= '800' height='500' src='" + getClass().getResource(Packages[i-1][1]) + "'</body></html>";
+		}
+		catch (Exception e) {
+			//most likely cause is an out of bounds error, return index zero to prevent a runtime crash
+			image = "<html><body><img width= '800' height='500' src='" + getClass().getResource(Packages[0][1]) + "'</body></html>";
+		}
 		return image;
 	}
 	
 	/**
 	 * Method to get the text values
+	 * index i is base 1 value not base 0 value  //DL 2025-Sept-30 Updated to clarify base used
 	 */
 	private String getTextDescription(int i) {
 		String text = ""; 
 		
-		//DL 2025-Sept-30 - Disabled nested if-else in preference of an indexed call that is easily expanded to a different size and variable
-		//contents that could reside on an accessible database later.
-/*		if (i==1){
+		/*
+		 * DL 2025-Sept-30 - Updating the code from a difficult to manipulate nested if-else into a single array driven line of code to ensure
+		 * consistency and minimize maintenance should requirements change.
+		 * 
+		 * This change is made to optimize the functional code elements which ensures more reliable and testable code
+
+		if (i==1){
 			text = "<html><body><font size='5'>#1 The Grand Canyon.</font> <br>Spectacular canyon views and hiking.</body></html>";
 		} else if (i==2){
 			text = "<html><body>#2 Top Destination</body></html>";
@@ -213,10 +222,18 @@ public class SlideShow extends JFrame {
 		} else if (i==5){
 			text = "<html><body>#5 Top Destination</body></html>";
 		}
-*/
-		//retrieve the desired short text from the packages array based on the index value.  Assumes i is presented as a base 1 value vs base 0
-		//based on the strawman provided code.
-		text = "<html><body><font size='5'>#" + Packages[i-1][0] + " " +Packages[i-1][2] + "</body></html>";
+		* 
+		* retrieve the desired test field from the packages array based on the index value.  Assumes i is presented as a base 1 value vs base 0
+		* based on the straw-man provided code.
+		* DL 2025-Sept-30
+		*/
+		try {
+			text = "<html><body><font size='5'>#" + Packages[i-1][0] + " " +Packages[i-1][2] + "</body></html>";
+		}
+		catch (Exception e) {
+			//most likely cause is an out of bounds error, return index zero to prevent a runtime crash
+			text = "<html><body><font size='5'>#" + Packages[0][0] + " " +Packages[0][2] + "</body></html>";
+		}
 		return text;
 	}
 	
